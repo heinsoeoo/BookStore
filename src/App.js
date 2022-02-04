@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 
 import AppHeader from './components/AppHeader';
-import Home from './pages/Home';
+import Books from './pages/Books';
 
 import { CssBaseline, withStyles } from '@material-ui/core';
 
@@ -19,7 +19,7 @@ const App = ({classes}) => (
     <CssBaseline />
     <AppHeader />
     <main className={classes.main}>
-      <Home />
+      <Books />
     </main>
   </Fragment>
 );
