@@ -2,8 +2,11 @@ import React, { Fragment } from 'react';
 
 import AppHeader from './components/AppHeader';
 import Books from './pages/Books';
+import Home from './pages/Home';
 
 import { CssBaseline, withStyles } from '@material-ui/core';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import BookEditor from './components/BookEditor';
 
 const styles = theme => ({
   main: {
@@ -16,11 +19,19 @@ const styles = theme => ({
 
 const App = ({classes}) => (
   <Fragment>
-    <CssBaseline />
-    <AppHeader />
-    <main className={classes.main}>
-      <Books />
-    </main>
+    <Router>
+      <CssBaseline />
+      <AppHeader />
+      <main className={classes.main}>
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/books' element={<Books />}>
+              <Route exact path='edit' element={<BookEditor />} />
+              <Route exact path=':id' element={<BookEditor />} />
+            </Route>
+          </Routes>
+      </main>
+    </Router>
   </Fragment>
 );
 

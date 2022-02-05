@@ -2,6 +2,7 @@ import React from 'react';
 
 import { AppBar, IconButton, Toolbar, Typography } from '@material-ui/core';
 import { Menu } from '@material-ui/icons';
+import { Link } from 'react-router-dom';
 
 class AppHeader extends React.Component {
     render() {
@@ -12,7 +13,7 @@ class AppHeader extends React.Component {
                         <Menu />
                     </IconButton>
                     <Typography variant="h6">
-                        Book Store
+                        <Link style={{textDecoration: 'none', color: 'inherit'}} to='/'>Book Store</Link>
                     </Typography>
                 </Toolbar>
             </AppBar>
