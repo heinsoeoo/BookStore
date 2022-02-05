@@ -39,7 +39,7 @@ class Books extends React.Component {
         if(id) {
             this.setState({
                     books: [...this.state.books].map(book => {
-                    if (book.id === id) {
+                    if (book.id === +id) {
                         return {
                             ...book,
                             title: `New Book ${id}`,
