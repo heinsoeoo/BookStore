@@ -41,13 +41,13 @@ app.get('/', (req, res) => {
     res.send("Hello");
 })
 
-app.get('/books', book.findAll);
+app.get('/api/books', book.findAll);
 
-app.post('/books/new', book.create);
+app.post('/api/books/new', book.create);
 
-app.put('/books/:id', book.update);
+app.put('/api/books/:id', book.update);
 
-app.delete('/books/:id', book.delete);
+app.delete('/api/books/:id', book.delete);
 
 app.listen(port, ()=> {
     dbTest();
