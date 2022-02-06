@@ -37,6 +37,10 @@ var dummies = [
     {id: 6, title: 'Book 06', author: 'Author 06', genre: 'Gen 06', price: 30},
 ];
 
+app.get('/', (req, res) => {
+    res.send("Hello");
+})
+
 app.get('/books', book.findAll);
 
 app.post('/books/new', book.create);
