@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const API = process.env.REACT_APP_API || 'http://localhost:3001';
+const API = process.env.REACT_APP_API || 'http://localhost:3001/api';
 
 class Books extends React.Component {
     state = {
