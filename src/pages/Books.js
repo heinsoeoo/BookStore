@@ -118,7 +118,7 @@ class Books extends React.Component {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {this.state.books.map(book => (
+                                {orderBy(this.state.books, 'updatedAt', 'desc').map(book => (
                                     <TableRow key={book.id}>
                                         <TableCell>{book.title}</TableCell>
                                         <TableCell>{book.author}</TableCell>
