@@ -34,7 +34,6 @@ class Books extends React.Component {
 
     componentDidMount() {
         this.getBooks();
-        console.log(API);
     }
 
     async fetch(method, endpoint, data) {
@@ -54,9 +53,6 @@ class Books extends React.Component {
         this.setState({loading: false, books: (await this.fetch('GET', '/books')) || []});
     }
 
-    // validate = () => {
-    //     return (!this.titleRef.current.value||!this.authorRef.current.value||!this.genreRef.current.value||!this.priceRef.current.value) ? false : true;
-    // }
     saveBook = async (book) => {
         if (book.id) {
             await this.fetch('PUT', `/books/${book.id}`, book);
@@ -81,7 +77,10 @@ class Books extends React.Component {
             price: event.target.price.value
         }
         let chkBook = await this.state.books.find(book => book.id==+id);
-        if(!chkBook && id !== 'new') this.props.navigate(-1);
+        console.log(id);
+        if(!chkBook && id !== 'new') {
+            this.props.navigate('/books')
+        };
         if (chkBook) book.id=chkBook.id;
         await this.saveBook(book);
     }

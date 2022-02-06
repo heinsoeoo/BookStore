@@ -35,10 +35,10 @@ const BookEditor = () => {
             <form autoComplete='off' onSubmit={addBook}>
                 <CardHeader title='Book Editor'/>
                 <CardContent className={classes.modalCardContent}>
-                    <TextField name='title' label='Book Title' defaultValue={book.title} required/>
-                    <TextField className={classes.marginTop} name='author' label='Author Name' defaultValue={book.author} required/>
-                    <TextField className={classes.marginTop} name='genre' label='Genre' defaultValue={book.genre} required/>
-                    <TextField className={classes.marginTop} name='price' label='Unit Price ($)' type='number' defaultValue={book.price} required/>
+                    <TextField name='title' label='Book Title' defaultValue={book? book.title: ''} required/>
+                    <TextField className={classes.marginTop} name='author' label='Author Name' defaultValue={book? book.author: ''} required/>
+                    <TextField className={classes.marginTop} name='genre' label='Genre' defaultValue={book? book.genre: ''} required/>
+                    <TextField className={classes.marginTop} name='price' label='Unit Price ($)' type='number' defaultValue={book? book.price: ''} required/>
                 </CardContent>
                 <CardActions>
                     <Button size='small' color='primary' type='submit'>Save</Button>
