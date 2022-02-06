@@ -77,7 +77,6 @@ class Books extends React.Component {
             price: event.target.price.value
         }
         let chkBook = await this.state.books.find(book => book.id==+id);
-        console.log(id);
         if(!chkBook && id !== 'new') {
             this.props.navigate('/books')
         };
