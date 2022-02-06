@@ -26,7 +26,7 @@ const App = ({classes}) => (
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/books' element={<Books />}>
-              <Route exact path='edit' element={<BookEditor />} />
+              <Route exact path='new' element={<BookEditor />} />
               <Route exact path=':id' element={<BookEditor />} />
             </Route>
           </Routes>

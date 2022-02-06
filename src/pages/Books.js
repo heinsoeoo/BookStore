@@ -23,6 +23,8 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
+const API = process.env.REACT_APP_API || 'http://localhost:3001';
+
 class Books extends React.Component {
     state = {
         loading: true,
@@ -31,39 +33,63 @@ class Books extends React.Component {
     }
 
     componentDidMount() {
-        this.setState({loading: false});
+        this.getBooks();
+        console.log(API);
     }
 
-    add = () => {
-        let id = this.props.params.id;
-        if(id) {
-            this.setState({
-                    books: [...this.state.books].map(book => {
-                    if (book.id === +id) {
-                        return {
-                            ...book,
-                            title: `New Book ${id}`,
-                        }
-                    } else {
-                        return book;
-                    }
-                })
-            });
+    async fetch(method, endpoint, data) {
+        const response = await fetch(`${API}${endpoint}`, {
+            method,
+            body: JSON.stringify(data),
+            headers: {
+                'content-type': 'application/json',
+                accept: 'applicatin/json',
+            }
+        });
+        return await response.json();
+    }
+
+    // Fetch Book Data
+    async getBooks() {
+        this.setState({loading: false, books: (await this.fetch('GET', '/books')) || []});
+    }
+
+    // validate = () => {
+    //     return (!this.titleRef.current.value||!this.authorRef.current.value||!this.genreRef.current.value||!this.priceRef.current.value) ? false : true;
+    // }
+    saveBook = async (book) => {
+        if (book.id) {
+            await this.fetch('PUT', `/books/${book.id}`, book);
         } else {
-            id = this.state.books.length + 1;
-            this.setState({
-                books: [
-                    ...this.state.books,
-                    {id, title: `Book ${id}`, author: `Author ${id}`, genre: `gen ${id}`, price: id*10}
-                ],
-            });
+            await this.fetch('POST', '/books/new', book);
         }
+
         this.props.navigate(-1);
+        await this.getBooks();
+    }
+
+    // Create or update book
+    addBook = async (event) => {
+        if (this.state.loading) return null;
+        
+        event.preventDefault();
+        let id = this.props.params.id;
+        let book = {
+            title: event.target.title.value,
+            author: event.target.author.value,
+            genre: event.target.genre.value,
+            price: event.target.price.value
+        }
+        let chkBook = await this.state.books.find(book => book.id==+id);
+        if(!chkBook && id !== 'new') this.props.navigate(-1);
+        if (chkBook) book.id=chkBook.id;
+        await this.saveBook(book);
     }
 
     async deleteBook(book) {
         if(window.confirm(`Are you sure to delete ${book.title}`)) {
-            //await Delete
+            await this.fetch('DELETE', `/books/${book.id}`);
+            await this.getBooks();
         }
     }
 
@@ -78,7 +104,7 @@ class Books extends React.Component {
                         variant='contained'
                         color='primary'
                         component={Link}
-                        to='/books/edit'
+                        to='/books/new'
                         startIcon={<AddIcon/>}>New</Button>
                 </div>
                 {this.state.books.length > 0 ? (
@@ -125,7 +151,7 @@ class Books extends React.Component {
                     !this.state.loading && <Typography variant='subtitle1'>No books to show</Typography>
                 )}
 
-                <Outlet context={[this.add]} />
+                <Outlet context={[this.addBook, this.state.books.find(book => book.id==+this.props.params.id)]} />
             </>
         )
     }

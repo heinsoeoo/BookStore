@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
 const BookEditor = () => {
     const classes = useStyles();
     let navigate = useNavigate();
-    let [add] = useOutletContext();
+    let [addBook, book] = useOutletContext();
 
     return(
     <Modal
@@ -32,16 +32,16 @@ const BookEditor = () => {
         onClose={()=> navigate(-1)}
         open>
         <Card className={classes.modalCard}>
-            <form autoComplete='off'>
+            <form autoComplete='off' onSubmit={addBook}>
                 <CardHeader title='Book Editor'/>
                 <CardContent className={classes.modalCardContent}>
-                    <TextField label='Book Title' required/>
-                    <TextField className={classes.marginTop} label='Author Name' required/>
-                    <TextField className={classes.marginTop} label='Genre' required/>
-                    <TextField className={classes.marginTop} label='Unit Price ($)' required/>
+                    <TextField name='title' label='Book Title' defaultValue={book.title} required/>
+                    <TextField className={classes.marginTop} name='author' label='Author Name' defaultValue={book.author} required/>
+                    <TextField className={classes.marginTop} name='genre' label='Genre' defaultValue={book.genre} required/>
+                    <TextField className={classes.marginTop} name='price' label='Unit Price ($)' type='number' defaultValue={book.price} required/>
                 </CardContent>
                 <CardActions>
-                    <Button size='small' color='primary' onClick={add}>Save</Button>
+                    <Button size='small' color='primary' type='submit'>Save</Button>
                     <Button size='small' onClick={() => navigate(-1)}>Cancel</Button>
                 </CardActions>
             </form>
