@@ -37,15 +37,21 @@ class Books extends React.Component {
     }
 
     async fetch(method, endpoint, data) {
-        const response = await fetch(`${API}${endpoint}`, {
-            method,
-            body: JSON.stringify(data),
-            headers: {
-                'content-type': 'application/json',
-                accept: 'applicatin/json',
-            }
-        });
-        return await response.json();
+        try {
+            const response = await fetch(`${API}${endpoint}`, {
+                method,
+                body: JSON.stringify(data),
+                headers: {
+                    'content-type': 'application/json',
+                    accept: 'applicatin/json',
+                }
+            });
+            return await response.json();
+        } catch (error) {
+            console.error(error);
+      
+            this.setState({ error });
+          }
     }
 
     // Fetch Book Data
