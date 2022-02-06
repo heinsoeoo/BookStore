@@ -21,9 +21,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "npm-run-all --parallel start:server start:web",
+    "start": "npm-run-all --parallel watch:server start:web",
     "start:old_web": "react-scripts start",
-    "start:web": "node --max_old_space_size=2560 node_modules/.bin/react-scripts start",
     "start:server": "node src/server",
     "watch:server": "nodemon --watch src/server src/server",
     "build": "react-scripts build",
