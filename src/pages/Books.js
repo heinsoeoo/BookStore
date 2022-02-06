@@ -76,7 +76,8 @@ class Books extends React.Component {
             genre: event.target.genre.value,
             price: event.target.price.value
         }
-        let chkBook = await this.state.books.find(book => book.id==+id);
+        
+        let chkBook = await this.state.books.find(book => book.id==id);
         if(!chkBook && id !== 'new') {
             this.props.navigate('/books')
         };
@@ -118,7 +119,7 @@ class Books extends React.Component {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {orderBy(this.state.books, 'updatedAt', 'desc').map(book => (
+                                {this.state.books.map(book => (
                                     <TableRow key={book.id}>
                                         <TableCell>{book.title}</TableCell>
                                         <TableCell>{book.author}</TableCell>

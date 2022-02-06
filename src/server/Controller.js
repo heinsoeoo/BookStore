@@ -28,7 +28,11 @@ exports.create = (req, res) => {
 exports.findAll = (req, res) => {
     
     // Retrieve all Books
-    Book.findAll()
+    Book.findAll({
+            order: [
+                ['updatedAt', 'DESC'],
+            ]
+        })
         .then(data => {
             res.send(data);
         })
