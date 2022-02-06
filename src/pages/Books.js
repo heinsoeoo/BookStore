@@ -7,7 +7,7 @@ import {
     TableHead,
     TableRow,
     Typography,
-    makeStyles
+    makeStyles,
 } from '@material-ui/core';
 import { Link, Outlet, useNavigate, useParams } from 'react-router-dom';
 import { Add as AddIcon, Edit as EditIcon, Delete as DeleteIcon} from '@material-ui/icons';
@@ -104,7 +104,7 @@ class Books extends React.Component {
         return (
             <>
                 <div className={classes.header}>
-                    <Typography variant="h4">Books Manager</Typography>
+                    <Typography variant="h4" align='center'>Books Manager</Typography>
                     <Button 
                         variant='contained'
                         color='primary'
@@ -112,8 +112,7 @@ class Books extends React.Component {
                         to='/books/new'
                         startIcon={<AddIcon/>}>New</Button>
                 </div>
-                {this.state.books.length > 0 ? (
-                    <TableContainer>
+                <TableContainer>
                         <Table>
                             <TableHead>
                                 <TableRow>
@@ -124,6 +123,7 @@ class Books extends React.Component {
                                     <TableCell align='right'>Actions</TableCell>
                                 </TableRow>
                             </TableHead>
+                            {this.state.books.length > 0 ? (
                             <TableBody>
                                 {this.state.books.map(book => (
                                     <TableRow key={book.id}>
@@ -150,11 +150,16 @@ class Books extends React.Component {
                                     </TableRow>
                                 ))}
                             </TableBody>
+                            ) : (
+                                !this.state.loading && 
+                                <TableRow>
+                                    <TableCell colSpan={5}>
+                                        <Typography variant='subtitle1' align='center'>No books to show!</Typography>
+                                    </TableCell>
+                                </TableRow>
+                            )}
                         </Table>
-                    </TableContainer>
-                ) : (
-                    !this.state.loading && <Typography variant='subtitle1'>No books to show</Typography>
-                )}
+                </TableContainer>
 
                 <Outlet context={[this.addBook, this.state.books.find(book => book.id==+this.props.params.id)]} />
             </>
